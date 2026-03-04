@@ -4,6 +4,7 @@ import os
 from pydantic import BaseModel
 import requests
 from dotenv import load_dotenv
+import uvicorn
 
 load_dotenv()
 
@@ -68,3 +69,9 @@ def chat(request: ChatRequest):
 		return {"response": "Please type your question so I can help you."}
 
 	return {"response": get_groq_response(user_message)}
+
+
+
+if __name__ == "__main__":
+	port = int(os.environ.get("PORT", 8000))
+	uvicorn.run("app.main:app", host="0.0.0.0", port=port)
